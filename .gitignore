@@ -14,7 +14,7 @@ adm-user_SSH.pub
 yandex_cloud.ini
 **/molecule/*
 **/roles/*
-
+.tmp
 
 # Crash log files
 crash.log
