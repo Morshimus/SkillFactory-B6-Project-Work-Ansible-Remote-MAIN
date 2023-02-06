@@ -1,0 +1,4 @@
+---
+- src: https://github.com/Morshimus/SkillFactory-B6-Project-Work-Ansible-Remote-Environment-Roles
+  name: common
+  scm: git 
