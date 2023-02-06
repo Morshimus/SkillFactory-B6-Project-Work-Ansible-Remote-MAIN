@@ -62,3 +62,10 @@ resource "local_file" "yc_inventory" {
   content  = local.ansible_template
   filename = "${path.module}/yandex_cloud.ini"
 }
+
+resource "local_file" "yc_inventory_remote" {
+  content  = local.ansible_template_remote
+  filename = "${path.module}/inventory.ini"
+
+}
+
