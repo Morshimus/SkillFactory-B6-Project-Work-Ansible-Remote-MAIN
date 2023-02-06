@@ -29,6 +29,7 @@
 | Name | Type |
 |------|------|
 | [local_file.yc_inventory](https://registry.terraform.io/providers/hashicorp/local/latest/docs/resources/file) | resource |
+| [local_file.yc_inventory_remote](https://registry.terraform.io/providers/hashicorp/local/latest/docs/resources/file) | resource |
 | [yandex_vpc_network.morsh-network](https://registry.terraform.io/providers/yandex-cloud/yandex/latest/docs/resources/vpc_network) | resource |
 | [yandex_vpc_subnet.morsh-subnet-a](https://registry.terraform.io/providers/yandex-cloud/yandex/latest/docs/resources/vpc_subnet) | resource |
 
