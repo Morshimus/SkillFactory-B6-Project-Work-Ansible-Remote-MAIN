@@ -1,4 +1,29 @@
-# lint
+# SkillFactory-B6-Project-Work-Ansible-Remote-MAIN
+
+# Roles - https://github.com/Morshimus/SkillFactory-B6-Project-Work-Ansible-Remote-Roles
+
+## Задание Проектной Работы:
+* [x] - :one: ~~**Создать 3 ВМ в Я.Облаке (минимальная конфигурация: 2vCPU, 2GB RAM, 20 GB HDD): vm1 и vm2 (Ubuntu 20.04), vm3 (Centos 8).**~~
+
+* [x] - :two: ~~**Установить на vm1 Ansible.**~~
+
+* [x] - :three: ~~**Создать на vm1 пользователя для Ansible.**~~
+
+* [x] - :four: ~~**Настроить авторизацию по ключу для этого пользователя с vm1 на vm2 и vm3.**~~
+
+* [x] - :five: ~~**Добавить в inventory информацию о созданных машинах. vm2 и vm3 должны быть в группе app, vm1 — в группе database и web.**~~
+
+* [x] - :six: ~~**Написать плейбук, реализующий следующее:**~~
+   - ~~*на машинах группы app выполняется установка и запуск Docker*~~
+       - ~~*на машинах группы database выполняется установка и запуск postgresql-server (версия и data-директория должны быть переменными, задающимися в inventory).*~~
+
+* [x] - :seven: ~~**Протестировать написанный плейбук.**~~
+
+* [x] - :eight: ~~**Выложить плейбук и inventory в GitHub. Создайте отдельный репозиторий Ansible.**~~
+
+* [x] - :nine: ~~**Прислать ментору ссылку на репозиторий с плейбуком.**~~
+
+
 
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Requirements
