@@ -1,6 +1,6 @@
 # SkillFactory-B6-Project-Work-Ansible-Remote-MAIN
 
-# Roles - https://github.com/Morshimus/SkillFactory-B6-Project-Work-Ansible-Remote-Roles
+# [Roles Here](https://github.com/Morshimus/SkillFactory-B6-Project-Work-Ansible-Remote-Roles)
 
 ## Задание Проектной Работы:
 * [x] - :one: ~~**Создать 3 ВМ в Я.Облаке (минимальная конфигурация: 2vCPU, 2GB RAM, 20 GB HDD): vm1 и vm2 (Ubuntu 20.04), vm3 (Centos 8).**~~
@@ -23,7 +23,50 @@
 
 * [x] - :nine: ~~**Прислать ментору ссылку на репозиторий с плейбуком.**~~
 
+## Начало
+* В заданиях описан концепт создания удаленной среды ansible, с помощью плейбуков и ролей. Мной было решено сделать все выполенения задания из терраформ - посредством ресурса local_file(Динамическая инвентаризация),local-exec(Запуск плейбука для преднастройки удаленых машин), remote-exec (Удаленный запуск ansible с плейбуком).*
 
+$${\color{magenta}locals.tf:}$$
+```
+  ansible_template_remote = templatefile(
+    "${path.module}/templates/ansible_inventory_template_remote.tpl",
+    {
+      ip1       = module.morsh_instance_ya_1.internal_ip_address_morsh_bastion,
+      hostname1 = module.morsh_instance_ya_1.hostname_morsh_bastion,
+      ip2       = module.morsh_instance_ya_2.internal_ip_address_morsh_bastion,
+      hostname2 = module.morsh_instance_ya_2.hostname_morsh_bastion
+      ip3       = module.morsh_instance_ya_3.internal_ip_address_morsh_bastion,
+      hostname3 = module.morsh_instance_ya_3.hostname_morsh_bastion
+
+
+    }
+  )
+
+```
+$${\color{magenta}resources.tf:}$$
+```
+resource "local_file" "yc_inventory_remote" {
+  content  = local.ansible_template_remote
+  filename = "${path.module}/roles/common/ansible/files/inventory.ini"
+  }
+
+```
+
+$${\color{yellow}templates|ansibleinventorytemplateremote.tpl:}$$
+
+```
+[database]
+${hostname1} ansible_host=${ip1} ansible_user=ansible
+[web]
+${hostname1} ansible_host=${ip1} ansible_user=ansible
+[app]
+${hostname2} ansible_host=${ip2} ansible_user=ansible
+${hostname3} ansible_host=${ip3} ansible_user=ansible
+[database:vars]
+pg_version=15
+pg_data_root=/opt/pg_data
+
+```
 
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Requirements
