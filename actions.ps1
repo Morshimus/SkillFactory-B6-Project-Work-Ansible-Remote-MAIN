@@ -189,7 +189,7 @@ function ansibleGalaxy {
  
  function UpdateAnsibleRoles {
  
-    Remove-Item -Recurse -Force  ./roles; if($?) {ansible-galaxy -action install} else {write-host -f Magenta "Roles dirictiry is not exist, use ansible-galaxy -action install to populate"}
+    Remove-Item -Recurse -Force  ./roles; if($?) {ansible-galaxy -action install} else {write-host -f Magenta "Roles directory is not exist, use ansible-galaxy -action install to populate"}
 
  }
 

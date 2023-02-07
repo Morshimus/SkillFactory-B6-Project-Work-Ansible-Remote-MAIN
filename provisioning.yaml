@@ -1,0 +1,35 @@
+---
+- hosts: db
+  gather_facts: yes
+
+- hosts: 
+     - app
+     - database
+  gather_facts: yes
+  become: yes     
+  roles:
+    - role: common/users_mgmt
+      vars:
+        admin_group: 'adm'
+        server_admin_list:
+         - name: "Ansible Administration Service"
+           username: "ansible"
+           keys:
+             active:
+               - "{{  adm_usr_pub }}"
+#             disabled:
+#               - "{{  adm_usr_pub_old }}"
+           shell: "/bin/bash"   
+           state: present
+
+
+- hosts: database
+  become: yes
+  roles:
+     - role: common/ansible
+       vars:
+        path_to_inventory: "/home/ansible/inventory.ini"
+        path_to_roles: "/home/ansible/roles"
+        path_to_requirements: "/home/ansible/requirements.yml"
+        path_to_key: "/home/ansible/{{ src_private_key }}"  
+       
