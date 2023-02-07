@@ -88,7 +88,7 @@ $${\color{magenta}resources.tf|local-exec+remote-exec:}$$
   }
 ```
 
-$${\color{pink}Let's \space Pimp \space Out \space Ride}$$
+$${\color{pink}Let's \space Pimp \space Our \space Ride}$$
 ## Man, we decided to put your ansible-playbook inside ansible-playbook...
 ![image](https://github.com/Morshimus/SkillFactory-B6-Project-Work-Ansible-Remote-MAIN/blob/main/img/xzibit-pimp.gif)
 
