@@ -111,7 +111,23 @@ $${\color{pink}Let's \space Pimp \space Out \space Ride}$$
 
 $${\color{pink}Time \space 4m54s}$$
 
+> Output
+ ![image](https://db3pap003files.storage.live.com/y4mT7_l0yqUUn97MmHVdFvbmEEL6VlcSNRvMltd7w9rgREYRet7WZdMPMztPUPR8-8syUxxEq2qq1Z5Rl6f6-LcDduSgEBxn6NIi9Qd6a38TYOlYuTrTlWbeD883qHE42phbV4jICFJ0c8a1UhKhnzH8VvJttixUIuM0zK1wDlp82DOy1GWbSjzQMDuwTDKEkpY3GQHkxE5By1d7ryeSYIcYA/Project-B6-Output.jpg?psid=1&width=1767&height=271)
+
 $${\color{blue}Tests:}$$
+
+> Тест vm1 - ubuntu 20.04 Postgresql 15
+ ![image](https://db3pap003files.storage.live.com/y4mKVZwyKpw1oQdkN6vYFQef9lV02A06p0tTHvYe2HPFK_GO7zNT1o3h1UIvgUbakza3RR_zm3l9oXSRp62-qrkbbuFWijN8ifacDogkeQewgQ1KqlOvv9mppLlTEUTAudOqXik-jEBi_6xTvjC6-mO_EwK2H8lvFS9yX8TrjLnMM74d3eT-y5WlW_yHuewLn98t5bi5EvanfjUXNmteTJngg/Project-B6-Test-VM1-postgres.jpg?psid=1&width=1773&height=417)
+
+> Тест vm2 - ubuntu 20.04 Docker
+ ![image](https://db3pap003files.storage.live.com/y4mW3vgrxm4zrwvgd4o6OK2TcjEAAhhDQlgBIRK3Ff-iGvbj5xmeWGUfvHPRt1Q_yo3-OH_04VXMMEWBle43ctPR0KzKFTDXamcxEnP3MhpvWfXXNRRnlAvUdDGTu_nNnGRfH6FwTCbi9rF80QTogglRqO7U-2fJN3P5D-cQH0lAo3BPzt8rXMRNWVup0S5b9QJYx0YRtlzQFPwan2qtDjudg/Project-B6-VM2-Test-Docker-Ubuntu.jpg?psid=1&width=1736&height=423)
+ 
+> Тест vm3 - CentOS 7 Docker
+ ![image](https://db3pap003files.storage.live.com/y4mBDFV72_fjpFwPaqZy9kAcKgAZvORWVOZBeF4rRy_HGJdphlrINk72fJk5OVQ67reCmzKhYL1C3jhiyOzo7UybFM9iy2l6oWTH6ImfBih6PMEhK1L3dK87SwHJ3HZXbwOuFwQ73hh2UYzLdCLEyVJr3-pfOGuadlfM6zQVNtzdUumO8o2UPKhe8sY8EfF5JXV87syyFili_dFZfGkclmgyQ/Project-B6-Test-VM3-Docker-CentOS7.jpg?psid=1&width=1618&height=256)
+
+ $${\color{green}Success!}$$
+ 
+ ![image](https://github.com/Morshimus/SkillFactory-B6-Project-Work-Ansible-Remote-MAIN/blob/main/img/finish.gif)
 
 
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
