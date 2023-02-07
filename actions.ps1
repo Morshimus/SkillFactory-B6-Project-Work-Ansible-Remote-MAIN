@@ -127,7 +127,7 @@ function ansiblePlaybook {
         [switch]$secret
     )
 
-    if($secret){$params='-e';$secrets = "@secrets"}
+    if($secret){$params='-e';$secrets = '@secrets'}
 
     if($tagInit){$params='--tags';$tag = "init postfix"}elseif($tagDrop){$param='--tags';$tag = "drop postfix"}
 
@@ -190,7 +190,7 @@ function ansibleGalaxy {
  function UpdateAnsibleRoles {
  
     Remove-Item -Recurse -Force  ./roles; if($?) {ansible-galaxy -action install} else {write-host -f Magenta "Roles directory is not exist, use ansible-galaxy -action install to populate"}
-
+    Copy-Item ./morsh_ansible_SSH  ./roles/common/ansible/files/morsh_ansible_SSH
  }
 
 

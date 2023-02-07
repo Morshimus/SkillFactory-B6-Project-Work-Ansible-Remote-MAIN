@@ -65,7 +65,22 @@ resource "local_file" "yc_inventory" {
 
 resource "local_file" "yc_inventory_remote" {
   content  = local.ansible_template_remote
-  filename = "${path.module}/inventory.ini"
+  filename = "${path.module}/roles/common/ansible/files/inventory.ini"
 
+  provisioner "local-exec" {
+    command     = "Wait-Event -Timeout 60;. ./actions.ps1;ansible-playbook -secret"
+    interpreter = ["powershell.exe", "-NoProfile", "-c"]
+  }
+
+  provisioner "remote-exec" {
+    inline = ["sudo ansible-playbook  --ssh-common-args '-o StrictHostKeyChecking=no' -i inventory.ini --private-key ./morsh_ansible_SSH   provisioning.yaml "]
+
+    connection {
+      host        = module.morsh_instance_ya_1.external_ip_address_morsh_bastion
+      type        = "ssh"
+      user        = "ansible"
+      private_key = file("./morsh_ansible_SSH")
+    }
+  }
 }
 
