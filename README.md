@@ -24,7 +24,7 @@
 * [x] - :nine: ~~**Прислать ментору ссылку на репозиторий с плейбуком.**~~
 
 ## Начало
-* В заданиях описан концепт создания удаленной среды ansible, с помощью плейбуков и ролей. Мной было решено сделать все выполенения задания из терраформ - посредством ресурса local_file(Динамическая инвентаризация),local-exec(Запуск плейбука для преднастройки удаленых машин), remote-exec (Удаленный запуск ansible с плейбуком).*
+- *В заданиях описан концепт создания удаленной среды ansible, с помощью плейбуков и ролей. Мной было решено сделать все выполенения задания из терраформ - посредством ресурса local_file(Динамическая инвентаризация),local-exec(Запуск плейбука для преднастройки удаленых машин), remote-exec (Удаленный запуск ansible с плейбуком).*
 
 $${\color{magenta}locals.tf:}$$
 ```
@@ -43,12 +43,12 @@ $${\color{magenta}locals.tf:}$$
   )
 
 ```
-$${\color{magenta}resources.tf:}$$
+$${\color{magenta}resources.tf|local_file:}$$
 ```
 resource "local_file" "yc_inventory_remote" {
   content  = local.ansible_template_remote
   filename = "${path.module}/roles/common/ansible/files/inventory.ini"
-  }
+...
 
 ```
 
@@ -67,6 +67,47 @@ pg_version=15
 pg_data_root=/opt/pg_data
 
 ```
+
+$${\color{magenta}resources.tf|local-exec+remote-exec:}$$
+
+```
+  provisioner "local-exec" {
+    command     = "Wait-Event -Timeout 60;. ./actions.ps1;ansible-playbook -secret"
+    interpreter = ["powershell.exe", "-NoProfile", "-c"]
+  }
+  
+  provisioner "remote-exec" {
+    inline = ["sudo ansible-playbook  --ssh-common-args '-o StrictHostKeyChecking=no' -i inventory.ini --private-key ./morsh_ansible_SSH   provisioning.yaml "]
+
+    connection {
+      host        = module.morsh_instance_ya_1.external_ip_address_morsh_bastion
+      type        = "ssh"
+      user        = "ansible"
+      private_key = file("./morsh_ansible_SSH")
+    }
+  }
+```
+
+$${\color{pink}Let's \space Pimp \space Out \space Ride}$$
+## Man, we decided to put your ansible-playbook inside ansible-playbook...
+![image](https://github.com/Morshimus/SkillFactory-B6-Project-Work-Ansible-Remote-MAIN/blob/main/img/xzibit-pimp.gif)
+
+# Скриншоты динамической  инвентаризации  и тестов разных систем в молекула:
+
+> Для postgresql было протестирована установка дистров от 11 до 15. Для 15 создан отдельный теплейт j2, где закомментирован путь до stats_temp_directory, так как не используется в версии 15.
+![image](https://db3pap003files.storage.live.com/y4mO-yloxGxwXyXyb8aSq0fzKvXx1YacHlOgMhOsswe4ewVRDQe-Lx6C4N0HlCk8xMzlrVijkCEk-gl1KX95n8_gASL-HcMjI93a6o0DChsPOqDeIY3D5xX7GCQz8klHqDXl_JR6MzCOl1ZDArWpMniN51n5oB6qKQCDygWaLIfqwzE1yfXvoCosQ4AvzZ5THT4NoALO99uRXBjnqUImTUJ0g/Project-B6-Handy-Tests-Molecule.jpg?psid=1&width=1537&height=777)
+
+> Для тестирования установки докера - использовались тесты на двух платформах Ubuntu20.04 и CentOS7
+![image](https://db3pap003files.storage.live.com/y4mPkRXEfnp-fXlg8Kcc-7ljoZS1rHvOSEtf2Kexkfv03mVDLjRaf5xN-_-NmN-N6N5RXL-YlOpIKTCdSFfoWZ7sS3_sGCS_tJCFM00zpR3Cz3W-aS9kwBgTX_zb8Z28u_wpc-HBDRxX5SZpgOa4PJSA1uV4z717EJ8NXfl72kBzbXqz4qTMXbnwQKxBEd0tF7ZPTwh4GJq6utZXyCoESG35A/Project-B6-Testing-Seperate-OS-Containers-Molecule.jpg?psid=1&width=1307&height=731)
+
+> Динамическая инвентаризация которая создается терраформом, после создания ресурсов
+![image](https://db3pap003files.storage.live.com/y4mEoJhHlM2nUzbuPi5x8gzlAGt6KQcnCu0FKobejJ8e4cBW4avKuf1pK-yAzRc5pUJD6bfHNTKWzOVlOPfK47WTuUC_4gSOFy7Ld2Gcx7NEc0MQJfajJ7RwiKoo3k2yZ-qIzlPXS-DF9qaPVMLfXX3dDkHgyTQ_STFcnMc-Q07RXhYlF9YpdHlA54LJZVafgUtn92JsSsgbB2L2Ot5ot6t8A/Project-B6-Inventory-File-For-Remote.jpg?psid=1&width=957&height=263)
+
+
+# Скриншоты выполнения нашего Ansible + Remote Ansible:
+
+> Start
+![image](https://db3pap003files.storage.live.com/y4mECfLScJiMiJ6Ufru3mFa8UKdiYhENeSkBrsPbw7sSSY5oySXRojYn62Uj4E-L9TohijetNMSIRCWkSxCg1ZzNApZLoYQ6UJ9mZecWSZH71bOc4m34aCWPU53X9j7e_0wpc2sGDdlaUEuxFuIzOaTlUyg5LxzilLI_9MXT4w5jqJVFwR0GZvNfisTy5CjlmYrtQ1b1Xr8HifNuzmRMedrBA/Project-B6-1.jpg?psid=1&width=1667&height=802) ![image](https://db3pap003files.storage.live.com/y4mrKXkawKY2lui7yH3tbmCe1O9EQiQGnVW8bKgYhRQS9Zg9e5GzVtb8xn5W4FXDgzRmQg-7fI8P7wnAbDrAVSVhM0AkT9wrIliX7A6p-nz51-9BPM6qj2gBW0fz-v83PzytjiWSoYp_1Ad8W_Ti8Hz9HGP654oP7kBDNrAkTgqKlMOoAzQ5Qf-vBGcnQxEptiWv6wfQ5lIjPplr_QcsOscdg/Project-B6-2.jpg?psid=1&width=1632&height=802) ![image](https://db3pap003files.storage.live.com/y4mEy_yTs39eKRc8C6RBDyo1Yf4VylNnMAShyplJlJw71DAeml8TTVjRMJnNFGiMW-Kk-6ly2-U84_zvL_Lnjy8YyuYHjmC2k_ox4dngmWIGXiNyj7Hxw7DXJtIV4swHQJRdAdTR09tJ1wZxYHP5oxpYjwAGZ7yBo9y2vVLNqYNxK1Pbkq3bWjaVMqvkoLN8eyJYB1Vak9CbUhAAG5qF0mmAQ/Project-B6-3.jpg?psid=1&width=1599&height=802) ![image](https://db3pap003files.storage.live.com/y4mgcFw0euimJmvOIDgkgPZzrS-_gQd5_7VSi3yxK39-Kk5kSXsYQQywu90UlC4j7xRxUEgCSqH-yLIIspb683TwfDPdPbu4wXSkil0Md2DDyhvpzJBwAcf3aiicxOUp37X03RF3zAnbnuDLZuSqxZTvT6Eu4HP2Pkb_fZe8j_bUBfGMnbCgx2cG8TBhxy5aqHe9OI-GVpAAj9DGLvIa-9Jxg/Project-B6-4.jpg?psid=1&width=1558&height=802) ![image](https://db3pap003files.storage.live.com/y4mvm2MKBtIQCbg7YySCLI5UoP623It0TStnUuWEYDdl-u8VAxN-qwS6GsHI4WvOhoyvNb_6wiHKrZl0EhAD4UyqR3mSLWlNedo2eeGUeotYMHL1srmkS45p9FHDjUFvXcivjeLXtUASeKICR_2gB-6UrFdknCIZ7QPDaoyPErfNLy_MwWV0ORypV-NTzc6d3AVn8UKqFp4Tkqr0xJZ5kw8Sw/Project-B6-5.jpg?psid=1&width=1545&height=802) ![image](https://db3pap003files.storage.live.com/y4mgNf4kdU5i3rh84PAg_Ygg-PhhQxH3i3dRWZ4B_EmbkOJI33XYvAvmw8yaZf5rpeeoUv5rcAmYKSRX4myWlAeoO4soO7jE7RzqzUMHXC7dO3ZLnSIQicojcxhEhsvUhnSUdwhUfgPcUjsCB6fgKTEiRP_kzl7KAe4EFfUBz7zl3iEov82LC9khBQeo3c48RRPofa2S6tKUBxTwMU6jGJk7g/Project-B6-6.jpg?psid=1&width=1583&height=802) Далее делал отдельный пробег, ибо powershell поломал вывод в консоль ![image](https://db3pap003files.storage.live.com/y4m0ZhzadQ1TmxhaqEXNO68CNTsFkz35nk3pVOLSYd-Y5OZr13YFK7cMyXaRSgFs7zxTjCSY9_47eamd68baWVehvJVqKa8_kn4XG63iPWaA_herRs0_ws72Ep5CIri5Ffk3CnbM6lzsgA4ti86RLq0tBsYBAeUGr72bvCpXRvAOEpQ_o94sugbshZr2Ngz2Osd7uqi6KmYnajU4hx3qtNaRQ/Project-B6-7.jpg?psid=1&width=1498&height=802)
 
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Requirements
